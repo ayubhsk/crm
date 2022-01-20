@@ -76,7 +76,7 @@
 
         -->
 
-        <package name="com.whx.domain"/>
+        <package name="com.whx.crm.settings.domain"/>
 
     </typeAliases>
 
@@ -125,7 +125,7 @@
 
         -->
 
-        <package name="com.whx.dao"/>
+        <package name="com.whx.crm.settings.dao"/>
 
     </mappers>
 </configuration>

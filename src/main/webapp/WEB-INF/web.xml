@@ -3,6 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>com.whx.crm.web.filter.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
+
 
     <servlet>
         <servlet-name>UserController</servlet-name>
@@ -10,6 +20,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
-        <url-pattern>/settings/user/save.do</url-pattern>
+        <url-pattern>/settings/user/login.do</url-pattern>
     </servlet-mapping>
 </web-app>
