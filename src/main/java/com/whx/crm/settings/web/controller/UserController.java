@@ -1,4 +1,4 @@
-package com.whx.crm.web.controller;
+package com.whx.crm.settings.web.controller;
 
 import com.whx.crm.settings.domain.User;
 import com.whx.crm.settings.service.UserService;
@@ -34,6 +34,7 @@ public class UserController extends HttpServlet {
         String ip=request.getRemoteAddr();
         System.out.println("ip==============="+ip);
         UserService userService= (UserService) ServiceFactory.getService(new UserServiceImpl());
+        System.out.println("++++");
         try{
             User user=userService.login(loginAct,loginPwd,ip);
             request.getSession().setAttribute("user",user);

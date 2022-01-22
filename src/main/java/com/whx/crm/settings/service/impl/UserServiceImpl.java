@@ -1,21 +1,25 @@
 package com.whx.crm.settings.service.impl;
 
-import com.mysql.jdbc.TimeUtil;
 import com.whx.crm.exception.LoginException;
 import com.whx.crm.settings.dao.UserDao;
 import com.whx.crm.settings.domain.User;
 import com.whx.crm.settings.service.UserService;
 import com.whx.crm.utils.DateTimeUtil;
 import com.whx.crm.utils.SqlSessionUtil;
-import javafx.fxml.LoadException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao = SqlSessionUtil.getSqlSession().getMapper(UserDao.class);
 
+    @Override
+    public List<User> getUserList() {
+        List<User> users=userDao.getUserList();
+        return users;
+    }
 
     @Override
     public User login(String loginAct, String loginPwd, String ip) throws LoginException {
