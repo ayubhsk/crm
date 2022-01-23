@@ -76,10 +76,10 @@
         <form action="workbench/index.jsp" class="form-horizontal" role="form">
             <div class="form-group form-group-lg">
                 <div style="width: 350px;">
-                    <input class="form-control" type="text" placeholder="用户名" id="loginAct">
+                    <input class="form-control" type="text" placeholder="用户名" value="zs" id="loginAct">
                 </div>
                 <div style="width: 350px; position: relative;top: 20px;">
-                    <input class="form-control" type="password" placeholder="密码" id="loginPwd">
+                    <input class="form-control" type="password" placeholder="密码" value="123" id="loginPwd">
                 </div>
                 <div class="checkbox" style="position: relative;top: 30px; left: 10px;">
 
