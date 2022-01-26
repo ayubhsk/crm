@@ -54,6 +54,39 @@
 
             //页面加载完备后，加载备注信息
             showRemarkList()
+            $("#remarkBody").on("mouseover",".remarkDiv",function(){
+                $(this).children("div").children("div").show();
+            })
+            $("#remarkBody").on("mouseout",".remarkDiv",function(){
+                $(this).children("div").children("div").hide();
+            })
+
+            //更新备注按钮事件绑定
+            $("#updateRemarkBtn").click(function () {
+                var id=$("#remarkId").val()
+                var noteContent=$.trim($("#noteContent").val())
+                $.ajax({
+                    url : "workbench/activity/updateRemark.do",
+                    data : {
+                        "id":id,
+                        "noteContent":noteContent
+                    },
+                    type : "get",
+                    dataType : "json",
+                    success : function (data) {
+                        if(data.success){
+                            $("#e"+id).html(noteContent)
+                            var html=data.remark.editTime+'由'+data.remark.editBy
+
+                            $("#s"+id).html(html);
+                        }else {
+                            alert("更新失败")
+                        }
+                    }
+
+                })
+            })
+
         });
 
         function showRemarkList() {
@@ -67,20 +100,19 @@
                 success: function (data) {
 					var html = ""
                 	$.each(data,function (i,n) {
-						html += '<div class="remarkDiv" style="height: 60px;">'
+						html += '<div id="'+n.id+'" class="remarkDiv" style="height: 60px;">'
 						html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">'
 						html += '<div style="position: relative; top: -40px; left: 40px;" >'
-						html += '<h5>'+n.noteContent+'</h5>'
-						html += '<font color="gray">市场活动</font> <font color="gray">-</font> <b>${a.name}</b> <small style="color: gray;">'+(n.editFlag==0?n.createTime:n.editTime)+'由'+(n.editFlag==0?n.createBy:n.editBy)+'</small>'
+						html += '<h5 id="e'+n.id+'">'+n.noteContent+'</h5>'
+						html += '<font color="gray">市场活动</font> <font color="gray">-</font> <b>${a.name}</b> <small style="color: gray;"id="s'+n.id+'">'+(n.editFlag==0?n.createTime:n.editTime)+'由'+(n.editFlag==0?n.createBy:n.editBy)+'</small>'
 						html += '<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">'
-						html += '<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>'
+						html += '<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+n.id+'\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #FF0000;"></span></a>'
 						html += '&nbsp;&nbsp;&nbsp;&nbsp;'
-						html += '<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: #E6E6E6;"></span></a>'
+						html += '<a class="myHref" href="javascript:void(0);" onclick="deleteRemark(\''+n.id+'\')"><span class="glyphicon glyphicon-remove-circle" style="font-size: 20px; color: red;"></span></a>'
 						html += '</div>'
 						html += '</div>'
 						html += '</div>'
 					})
-                    console.log(html)
 					$("#remarkDiv").before(html)
 
                 }
@@ -93,6 +125,73 @@
                 var id = '${a.id}'
                 window.location = "workbench/activity/detailDelete.do?id=" + id
             }
+        }
+
+        function deleteRemark(id) {
+            $.ajax({
+
+                url : "workbench/activity/deleteRemark.do",
+                data : {
+                    "remarkId":id
+                },
+                type : "get",
+                dataType : "json",
+                success : function (data) {
+                    if(data.success){
+
+                        //找到需要删除记录的div
+                        $("#"+id).remove()
+                    }else {
+                        alert("删除备注失败")
+                    }
+                }
+
+            })
+
+        }
+        
+        function saveRemarkClick() {
+            $.ajax({
+                url : "workbench/activity/saveRemark.do",
+                data : {
+                    "noteContent":$.trim($("#remark").val()),
+                    "activityId": '${a.id}'
+                },
+                type : "get",
+                dataType : "json",
+                success : function (data) {
+                    if(data.success){
+                        var html=""
+                        html += '<div id="'+data.ar.id+'" class="remarkDiv" style="height: 60px;">'
+                        html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">'
+                        html += '<div style="position: relative; top: -40px; left: 40px;" >'
+                        html += '<h5 id="e'+data.ar.id+'">'+data.ar.noteContent+'</h5>'
+                        html += '<font color="gray">市场活动</font> <font color="gray">-</font> <b>${a.name}</b> <small style="color: gray;"id="s'+data.ar.id+'">'+data.ar.createTime+'由'+data.ar.createBy+'</small>'
+                        html += '<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">'
+                        html += '<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+data.ar.id+'\')"><span  class="glyphicon glyphicon-edit" style="font-size: 20px; color: #FF0000;"></span></a>'
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;'
+                        html += '<a class="myHref" href="javascript:void(0);" onclick="deleteRemark(\''+data.ar.id+'\')"><span class="glyphicon glyphicon-remove-circle" style="font-size: 20px; color: red;"></span></a>'
+                        html += '</div>'
+                        html += '</div>'
+                        html += '</div>'
+                        $("#remarkDiv").before(html)
+                        $("#remark").val("")
+                    }else{
+                        alert("备注添加失败")
+                    }
+                }
+
+            })
+        }
+
+        function editRemark(id) {
+            //记录下所选择的备注，让更新按钮使用
+            $("#remarkId").val(id)
+
+            //更新备注内容
+            var content=$("#e"+id).html()
+            $("#noteContent").val(content)
+            $("#editRemarkModal").modal("show")
         }
     </script>
 
@@ -265,7 +364,7 @@
 </div>
 
 <!-- 备注 -->
-<div style="position: relative; top: 30px; left: 40px;">
+<div style="position: relative; top: 30px; left: 40px;" id="remarkBody">
     <div class="page-header">
         <h4>备注</h4>
     </div>
@@ -293,7 +392,7 @@
                       placeholder="添加备注..."></textarea>
             <p id="cancelAndSaveBtn" style="position: relative;left: 737px; top: 10px; display: none;">
                 <button id="cancelBtn" type="button" class="btn btn-default">取消</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" id="saveRemarkBtn" onclick="saveRemarkClick()">保存</button>
             </p>
         </form>
     </div>

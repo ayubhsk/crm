@@ -81,6 +81,11 @@ public class ActivityServiceImpl implements ActivityService {
         boolean flag=true;
         int count=activityDao.deleteById(id);
         if(count!=1) flag=false;
+        //统计需要删除的备注数量
+        int count2=activityRemarkDao.getCountsByAid(id);
+        //实际删除备注
+        int count3=activityRemarkDao.deleteByAid(id);
+        if(count2!=count3) flag=false;
         return flag;
     }
 
@@ -89,4 +94,30 @@ public class ActivityServiceImpl implements ActivityService {
         List<ActivityRemark> remarks=activityRemarkDao.getRemarkListByAid(activityId);
         return remarks;
     }
+
+    @Override
+    public boolean deleteRemark(String id) {
+        boolean flag=true;
+        int count=activityRemarkDao.deleteById(id);
+        if(count!=1) flag=false;
+        return flag;
+    }
+
+    @Override
+    public boolean saveRemark(ActivityRemark ar) {
+        boolean flag=true;
+        int count=activityRemarkDao.saveRemark(ar);
+        if(count!=1) flag=false;
+        return flag;
+
+    }
+
+    @Override
+    public boolean updateRemark(ActivityRemark remark) {
+        boolean flag=true;
+        int count=activityRemarkDao.updateRemark(remark);
+        if(count!=1) flag=false;
+        return flag;
+    }
+
 }
