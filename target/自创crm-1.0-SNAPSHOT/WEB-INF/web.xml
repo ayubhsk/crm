@@ -24,6 +24,9 @@
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 
+    <listener>
+        <listener-class>com.whx.crm.web.listener.SysInitListener</listener-class>
+    </listener>
 
     <!--用户控制器-->
     <servlet>
@@ -56,5 +59,17 @@
         <url-pattern>/workbench/activity/updateRemark.do</url-pattern>
     </servlet-mapping>
 
+    <!--线索控制器-->
+    <servlet>
+        <servlet-name>ClueController</servlet-name>
+        <servlet-class>com.whx.crm.workbench.web.controller.ClueController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClueController</servlet-name>
+        <url-pattern>/workbench/clue/create.do</url-pattern>
+        <url-pattern>/workbench/clue/save.do</url-pattern>
+        <url-pattern>/workbench/clue/pageList.do</url-pattern>
+        <url-pattern>/workbench/clue/detail.do</url-pattern>
 
+    </servlet-mapping>
 </web-app>

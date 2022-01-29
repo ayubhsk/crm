@@ -9,19 +9,6 @@
     <base href="<%=basePath%>"/>
     <meta charset="UTF-8">
 
-    <link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css"
-          rel="stylesheet"/>
-
-    <script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
-    <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
-    <script type="text/javascript"
-            src="jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="jquery/bs_pagination/jquery.bs_pagination.min.css">
-    <script type="text/javascript" src="jquery/bs_pagination/jquery.bs_pagination.min.js"></script>
-    <script type="text/javascript" src="jquery/bs_pagination/en.js"></script>
 
     <script type="text/javascript">
 
@@ -146,6 +133,8 @@
 
                     //数据处理完毕后，分页插件展现数据
                     var totalPages = Math.floor((data.total + pageSize - 1) / pageSize)//整除操作
+                    console.log(data.total)
+                    console.log(totalPages)
                     $("#activityPage").bs_pagination({
                         currentPage: pageNo, // 页码
                         rowsPerPage: pageSize, // 每页显示的记录条数
