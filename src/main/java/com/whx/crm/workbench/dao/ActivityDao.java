@@ -2,6 +2,7 @@ package com.whx.crm.workbench.dao;
 
 import com.whx.crm.workbench.domain.Activity;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +23,9 @@ public interface ActivityDao {
 
     int deleteById(String id);
 
+    List<Activity> getActivityListByClueId(String clueId);
+
+    List<Activity> getActivityListByNameAndNotByClueId(HashMap<String, String> map);
+
+    List<Activity> getActivityListByName(String aname);
 }

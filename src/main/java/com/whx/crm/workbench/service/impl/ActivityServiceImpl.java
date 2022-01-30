@@ -103,6 +103,7 @@ public class ActivityServiceImpl implements ActivityService {
         return flag;
     }
 
+
     @Override
     public boolean saveRemark(ActivityRemark ar) {
         boolean flag=true;
@@ -118,6 +119,24 @@ public class ActivityServiceImpl implements ActivityService {
         int count=activityRemarkDao.updateRemark(remark);
         if(count!=1) flag=false;
         return flag;
+    }
+
+    @Override
+    public List<Activity> getActivityListByClueId(String clueId) {
+        List<Activity> activityList=activityDao.getActivityListByClueId(clueId);
+        return activityList;
+    }
+
+    @Override
+    public List<Activity> getActivityListByNameAndNotByClueId(HashMap<String, String> map) {
+        List<Activity> activityList=activityDao.getActivityListByNameAndNotByClueId(map);
+        return activityList;
+    }
+
+    @Override
+    public List<Activity> getActivityListByName(String aname) {
+        List<Activity> activityList=activityDao.getActivityListByName(aname);
+        return activityList;
     }
 
 }

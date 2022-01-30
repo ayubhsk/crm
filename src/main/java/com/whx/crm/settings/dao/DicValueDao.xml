@@ -5,7 +5,7 @@
 <mapper namespace="com.whx.crm.settings.dao.DicValueDao">
 
     <select id="getValueListByCode" resultType="com.whx.crm.settings.domain.DicValue">
-        select * from tbl_dic_value where typeCode=#{#code}
+        select * from tbl_dic_value where typeCode=#{#code} order by orderNO
     </select>
 
 </mapper>

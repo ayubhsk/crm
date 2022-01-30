@@ -94,6 +94,11 @@
         #{address}
         )
     </insert>
+
+
+    <delete id="delete">
+        delete from tbl_clue where id=#{clueId}
+    </delete>
 </mapper>
 
 

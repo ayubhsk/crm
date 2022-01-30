@@ -37,6 +37,7 @@
             });
 
             pageList(1, 3)
+
         });
 
 
@@ -601,6 +602,7 @@
             </table>
         </div>
 
+        <%--分页模块--%>
         <div style="height: 50px; position: relative;top: 60px;" id="activityPage">
 <%--            <div>
                 <button type="button" class="btn btn-default" style="cursor: default;">共<b>50</b>条记录</button>
